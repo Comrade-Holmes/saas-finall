@@ -23,8 +23,11 @@ app.use(
 
 app.use(express.json());
 
+const MONGO_URI = process.env.MONGO_URI ||
+  "mongodb+srv://suryasurya199250_db_user:cecKWFfnJ5ya5ouV@cluster0.kf5d1or.mongodb.net/saasapp?retryWrites=true&w=majority";
+
 mongoose
-  .connect(process.env.MONGO_URI)
+  .connect(MONGO_URI)
   .then(() => console.log("MongoDB Connected"))
   .catch((err) => console.log(err));
 
