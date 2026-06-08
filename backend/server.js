@@ -7,19 +7,8 @@ const authRoutes = require("./routes/authRoutes");
 const taskRoutes = require("./routes/taskRoutes");
 
 const app = express();
-
-const allowedOrigins = [process.env.CLIENT_URL].filter(Boolean);
-
-app.use(
-  cors({
-    origin: (origin, callback) => {
-      if (!origin) return callback(null, true);
-      if (allowedOrigins.includes(origin)) return callback(null, true);
-      callback(new Error("CORS policy does not allow this origin."));
-    },
-    credentials: true
-  })
-);
+// Temporarily allow all origins for testing. Revert before production.
+app.use(cors({ origin: true, credentials: true }));
 
 app.use(express.json());
 
