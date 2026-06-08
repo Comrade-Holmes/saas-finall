@@ -8,9 +8,19 @@ const taskRoutes = require("./routes/taskRoutes");
 
 const app = express();
 
+const allowedOrigins = [
+  process.env.CLIENT_URL,
+  "http://localhost:3000",
+  "https://saas-finall-swart.vercel.app"
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: process.env.CLIENT_URL || "http://localhost:3000",
+    origin: (origin, callback) => {
+      if (!origin) return callback(null, true);
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+      callback(new Error("CORS policy does not allow this origin."));
+    },
     credentials: true
   })
 );
